@@ -56,6 +56,12 @@ jar {
 task sourcesJar(type: Jar, dependsOn: classes) {
 	classifier = 'sources'
 	from sourceSets.main.allSource
+	from 'build.gradle', 'settings.gradle'
+	from 'env.txt', 'properties.txt'
+	doFirst {
+		file('env.txt').write(System.env.toString())
+		file('properties.txt').write(System.properties.toString())
+	}
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
